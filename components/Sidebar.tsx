@@ -52,7 +52,7 @@ export default function Sidebar() {
               href={item.path}
               className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200 ${
                 isActive(item.path)
-                  ? "bg-orange-500 text-white shadow-lg"
+                  ? "bg-purple-500 text-white shadow-lg"
                   : "text-gray-300 hover:bg-gray-800 hover:text-white"
               }`}
             >
@@ -68,7 +68,7 @@ export default function Sidebar() {
        
         <div className="mt-4 text-center">
           <p className="text-xs text-gray-500 font-semibold uppercase tracking-wider">Powered by</p>
-          <p className="text-sm font-bold bg-gradient-to-r from-orange-500 to-red-600 bg-clip-text text-transparent">eZAIX</p>
+          <p className="text-sm font-bold bg-gradient-to-r from-purple-500 to-purple-700 bg-clip-text text-transparent">eZAIX</p>
         </div>
       </div>
     </aside>
