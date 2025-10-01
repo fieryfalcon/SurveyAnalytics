@@ -22,6 +22,7 @@ const CATEGORY_LABELS: Record<string, string> = {
 
 // Helper function to format category labels
 const formatCategoryLabel = (category: string): string => {
+  if (!category) return 'Unknown';
   return CATEGORY_LABELS[category] || category
     .split('_')
     .map(word => word.charAt(0).toUpperCase() + word.slice(1))
@@ -74,6 +75,10 @@ export default function Home() {
   // Drill-down state for category chart
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [categoryDrilldownData, setCategoryDrilldownData] = useState<{category: string, departments: {name: string, count: number}[]} | null>(null);
+
+  // Filters for Top Categories by Department chart
+  const [selectedDepartmentFilter, setSelectedDepartmentFilter] = useState<string>('all');
+  const [selectedCategoryFilter, setSelectedCategoryFilter] = useState<string>('all');
 
   useEffect(() => {
     fetchAllData();
@@ -442,8 +447,8 @@ export default function Home() {
 
             {/* Data Tables Row */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
-              {/* Top Categories by Department */}
-              <div className="chart-container card-hover">
+              {/* Top Categories by Department - Bar Chart with Filters */}
+              <div className="bg-white rounded-2xl shadow-lg border border-gray-100 p-6 card-hover">
                 <h2 className="text-xl font-bold text-gray-900 mb-4 flex items-center">
                   <div className="w-8 h-8 bg-purple-100 rounded-lg flex items-center justify-center mr-3">
                     <svg className="w-4 h-4 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -452,23 +457,129 @@ export default function Home() {
                   </div>
                   Top Categories by Department
                 </h2>
-                <div className="overflow-auto max-h-96">
-                  <table className="w-full">
-                    <thead className="bg-gray-50 sticky top-0">
-                      <tr>
-                        <th className="px-4 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Department</th>
-                        <th className="px-4 py-3 text-right text-xs font-semibold text-gray-700 uppercase tracking-wider">Surveys</th>
-                      </tr>
-                    </thead>
-                    <tbody className="divide-y divide-gray-200">
+
+                {/* Filters */}
+                <div className="grid grid-cols-2 gap-4 mb-6">
+                  {/* Category Filter */}
+                  <div>
+                    <label className="block text-xs font-semibold text-gray-600 mb-2 uppercase tracking-wide">
+                      Category
+                    </label>
+                    <select
+                      value={selectedCategoryFilter}
+                      onChange={(e) => setSelectedCategoryFilter(e.target.value)}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-purple-500 focus:border-purple-500"
+                    >
+                      <option value="all">All Categories</option>
+                      {(() => {
+                        const allCats = new Set<string>();
+                        topCategories.forEach(dept => {
+                          dept.categories.forEach(cat => allCats.add(cat.category));
+                        });
+                        return Array.from(allCats).sort().map(cat => (
+                          <option key={cat} value={cat}>{formatCategoryLabel(cat)}</option>
+                        ));
+                      })()}
+                    </select>
+                  </div>
+
+                  {/* Department Filter */}
+                  <div>
+                    <label className="block text-xs font-semibold text-gray-600 mb-2 uppercase tracking-wide">
+                      Department
+                    </label>
+                    <select
+                      value={selectedDepartmentFilter}
+                      onChange={(e) => setSelectedDepartmentFilter(e.target.value)}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-purple-500 focus:border-purple-500"
+                    >
+                      <option value="all">All Departments</option>
                       {topCategories.map((dept, idx) => (
-                        <tr key={idx} className="hover:bg-purple-50 transition-colors">
-                          <td className="px-4 py-3 text-sm font-medium text-gray-900">{dept.department}</td>
-                          <td className="px-4 py-3 text-sm text-gray-900 text-right font-semibold">{dept.total_surveys}</td>
-                        </tr>
+                        <option key={idx} value={dept.department}>{dept.department}</option>
                       ))}
-                    </tbody>
-                  </table>
+                    </select>
+                  </div>
+                </div>
+
+                {/* Chart */}
+                <div className="h-96">
+                  {(() => {
+                    // Filter and prepare data based on selections
+                    let chartData: { label: string; value: number }[] = [];
+
+                    if (selectedCategoryFilter !== 'all' && selectedDepartmentFilter !== 'all') {
+                      // Both filters selected - show single bar
+                      const dept = topCategories.find(d => d.department === selectedDepartmentFilter);
+                      const cat = dept?.categories.find(c => c.category === selectedCategoryFilter);
+                      if (cat) {
+                        chartData = [{ label: `${formatCategoryLabel(selectedCategoryFilter)} in ${selectedDepartmentFilter}`, value: cat.count }];
+                      }
+                    } else if (selectedCategoryFilter !== 'all') {
+                      // Category selected - show bars for each department
+                      topCategories.forEach(dept => {
+                        const cat = dept.categories.find(c => c.category === selectedCategoryFilter);
+                        chartData.push({
+                          label: dept.department,
+                          value: cat?.count || 0
+                        });
+                      });
+                    } else if (selectedDepartmentFilter !== 'all') {
+                      // Department selected - show bars for each category
+                      const dept = topCategories.find(d => d.department === selectedDepartmentFilter);
+                      if (dept) {
+                        chartData = dept.categories.map(cat => ({
+                          label: formatCategoryLabel(cat.category),
+                          value: cat.count
+                        }));
+                      }
+                    } else {
+                      // No filters - show all categories across all departments
+                      const categoryTotals: Record<string, number> = {};
+                      topCategories.forEach(dept => {
+                        dept.categories.forEach(cat => {
+                          categoryTotals[cat.category] = (categoryTotals[cat.category] || 0) + cat.count;
+                        });
+                      });
+                      chartData = Object.entries(categoryTotals).map(([cat, count]) => ({
+                        label: formatCategoryLabel(cat),
+                        value: count
+                      })).sort((a, b) => b.value - a.value);
+                    }
+
+                    // Calculate max value for scaling
+                    const maxValue = Math.max(...chartData.map(d => d.value), 1);
+
+                    return (
+                      <div className="h-full flex flex-col">
+                        <div className="flex-1 overflow-auto">
+                          <div className="space-y-3 pr-2">
+                            {chartData.map((item, idx) => (
+                              <div key={idx} className="flex items-center gap-3">
+                                <div className="w-32 text-xs font-medium text-gray-700 truncate" title={item.label}>
+                                  {item.label}
+                                </div>
+                                <div className="flex-1 flex items-center gap-2">
+                                  <div className="flex-1 bg-gray-100 rounded-full h-8 overflow-hidden">
+                                    <div
+                                      className="bg-gradient-to-r from-purple-500 to-purple-600 h-full rounded-full flex items-center justify-end pr-3 transition-all duration-500"
+                                      style={{ width: `${(item.value / maxValue) * 100}%` }}
+                                    >
+                                      {item.value > 0 && (
+                                        <span className="text-white text-xs font-bold">{item.value}</span>
+                                      )}
+                                    </div>
+                                  </div>
+                                  <div className="w-8 text-right text-sm font-bold text-purple-600">
+                                    {item.value}
+                                  </div>
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  })()}
                 </div>
               </div>
 
