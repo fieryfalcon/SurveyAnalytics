@@ -198,11 +198,11 @@ export default function SurveyAnalytics() {
     }
 
     return sortOrder === 'asc' ? (
-      <svg className="w-4 h-4 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <svg className="w-4 h-4 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 15l7-7 7 7" />
       </svg>
     ) : (
-      <svg className="w-4 h-4 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <svg className="w-4 h-4 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
       </svg>
     );
@@ -215,7 +215,7 @@ export default function SurveyAnalytics() {
         <main className="flex-1 premium-gradient">
           <div className="flex items-center justify-center h-full">
             <div className="text-center">
-              <div className="w-16 h-16 border-4 border-orange-500 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+              <div className="w-16 h-16 border-4 border-purple-500 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
               <div className="text-2xl font-semibold text-gray-700">Loading Surveys...</div>
             </div>
           </div>
@@ -234,7 +234,7 @@ export default function SurveyAnalytics() {
             <div className="mb-8">
               <div className="flex items-center justify-between mb-6">
                 <div className="flex items-center">
-                  <div className="w-16 h-16 bg-gradient-to-br from-orange-500 via-orange-600 to-red-600 rounded-2xl flex items-center justify-center mr-4 shadow-2xl transform hover:scale-105 transition-transform duration-300">
+                  <div className="w-16 h-16 bg-gradient-to-br from-purple-500 via-purple-600 to-red-600 rounded-2xl flex items-center justify-center mr-4 shadow-2xl transform hover:scale-105 transition-transform duration-300">
                     <svg className="w-8 h-8 text-white drop-shadow-lg" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
                     </svg>
@@ -262,7 +262,7 @@ export default function SurveyAnalytics() {
                       placeholder="Search by title or description..."
                       value={searchTerm}
                       onChange={(e) => setSearchTerm(e.target.value)}
-                      className="w-full px-4 py-2 pl-10 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent"
+                      className="w-full px-4 py-2 pl-10 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
                     />
                     <svg className="w-5 h-5 text-gray-400 absolute left-3 top-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
@@ -276,7 +276,7 @@ export default function SurveyAnalytics() {
                   <select
                     value={selectedDepartment}
                     onChange={(e) => setSelectedDepartment(e.target.value)}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
                   >
                     <option value="">All Departments</option>
                     {filterOptions.departments.map((dept) => (
@@ -291,7 +291,7 @@ export default function SurveyAnalytics() {
                   <select
                     value={selectedCategory}
                     onChange={(e) => setSelectedCategory(e.target.value)}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
                   >
                     <option value="">All Categories</option>
                     {filterOptions.categories.map((cat) => (
@@ -307,7 +307,7 @@ export default function SurveyAnalytics() {
                   <div className="flex items-center gap-2 flex-wrap">
                     <span className="text-sm font-semibold text-gray-600">Active Filters:</span>
                     {searchTerm && (
-                      <span className="px-3 py-1 bg-orange-100 text-orange-700 rounded-full text-sm">
+                      <span className="px-3 py-1 bg-purple-100 text-purple-700 rounded-full text-sm">
                         Search: &quot;{searchTerm}&quot;
                       </span>
                     )}
@@ -324,7 +324,7 @@ export default function SurveyAnalytics() {
                   </div>
                   <button
                     onClick={clearFilters}
-                    className="px-4 py-2 text-sm font-semibold text-gray-700 hover:text-orange-600 transition-colors"
+                    className="px-4 py-2 text-sm font-semibold text-gray-700 hover:text-purple-600 transition-colors"
                   >
                     Clear All Filters
                   </button>
@@ -349,7 +349,7 @@ export default function SurveyAnalytics() {
                       setItemsPerPage(Number(e.target.value));
                       setCurrentPage(1);
                     }}
-                    className="px-3 py-1 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-orange-500 focus:border-transparent"
+                    className="px-3 py-1 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-purple-500 focus:border-transparent"
                   >
                     <option value={10}>10</option>
                     <option value={25}>25</option>
@@ -425,7 +425,7 @@ export default function SurveyAnalytics() {
                         <tr
                           key={survey._id}
                           onClick={() => router.push(`/analytics/survey/${survey._id}`)}
-                          className="hover:bg-orange-50 cursor-pointer transition-colors"
+                          className="hover:bg-purple-50 cursor-pointer transition-colors"
                         >
                           <td className="px-6 py-4">
                             <div>
@@ -509,7 +509,7 @@ export default function SurveyAnalytics() {
                           onClick={() => goToPage(pageNum)}
                           className={`px-4 py-2 text-sm font-medium rounded-lg transition-colors ${
                             currentPage === pageNum
-                              ? 'bg-orange-500 text-white'
+                              ? 'bg-purple-500 text-white'
                               : 'text-gray-700 bg-white border border-gray-300 hover:bg-gray-50'
                           }`}
                         >

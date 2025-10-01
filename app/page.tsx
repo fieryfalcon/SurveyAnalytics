@@ -146,7 +146,7 @@ export default function Home() {
         formatter: (value: number) => value.toFixed(0)
       }
     },
-    colors: ['#FF6B35'],
+    colors: ['#9333EA'],
     plotOptions: {
       bar: { 
         borderRadius: 8,
@@ -157,7 +157,7 @@ export default function Home() {
     dataLabels: {
       enabled: true,
       offsetY: -20,
-      style: { fontSize: '12px', colors: ['#FF6B35'] }
+      style: { fontSize: '12px', colors: ['#9333EA'] }
     },
     grid: { 
       borderColor: '#E5E7EB',
@@ -221,7 +221,7 @@ export default function Home() {
     labels: selectedCategory
       ? (categoryDrilldownData?.departments.map(d => d.name) || [])
       : categoryData.map(c => formatCategoryLabel(c.category)),
-    colors: ['#FF6B35', '#F7931E', '#FF8C42', '#FFA65D', '#FFB366', '#FFC078', '#FFCD8A'],
+    colors: ['#9333EA', '#A855F7', '#B17CF8', '#C084FC', '#D8B4FE', '#E9D5FF', '#F3E8FF'],
     plotOptions: {
       pie: {
         donut: {
@@ -233,7 +233,7 @@ export default function Home() {
               label: selectedCategory ? 'Total Surveys' : 'Total',
               fontSize: '16px',
               fontWeight: 600,
-              color: '#FF6B35',
+              color: '#9333EA',
               formatter: () => {
                 if (selectedCategory) {
                   return (categoryDrilldownData?.departments.reduce((a, b) => a + b.count, 0) || 0).toString();
@@ -293,7 +293,7 @@ export default function Home() {
   //       formatter: (value: number) => value.toFixed(0)
   //     }
   //   },
-  //   colors: ['#FF6B35'],
+  //   colors: ['#9333EA'],
   //   plotOptions: {
   //     bar: {
   //       borderRadius: 8,
@@ -304,7 +304,7 @@ export default function Home() {
   //   dataLabels: {
   //     enabled: true,
   //     offsetY: -20,
-  //     style: { fontSize: '12px', colors: ['#FF6B35'] }
+  //     style: { fontSize: '12px', colors: ['#9333EA'] }
   //   },
   //   grid: {
   //     borderColor: '#E5E7EB',
@@ -324,7 +324,7 @@ export default function Home() {
         <main className="flex-1 premium-gradient">
           <div className="flex items-center justify-center h-full">
             <div className="text-center">
-              <div className="w-16 h-16 border-4 border-orange-500 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+              <div className="w-16 h-16 border-4 border-purple-500 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
               <div className="text-2xl font-semibold text-gray-700">Loading...</div>
               <p className="text-gray-500 mt-2">Please wait while we prepare your experience</p>
             </div>
@@ -344,7 +344,7 @@ export default function Home() {
             <div className="mb-10">
               <div className="flex items-center justify-between mb-6">
                 <div className="flex items-center">
-                  <div className="w-16 h-16 bg-gradient-to-br from-orange-500 via-orange-600 to-red-600 rounded-2xl flex items-center justify-center mr-4 shadow-2xl transform hover:scale-105 transition-transform duration-300">
+                  <div className="w-16 h-16 bg-gradient-to-br from-purple-500 via-purple-600 to-purple-700 rounded-2xl flex items-center justify-center mr-4 shadow-2xl transform hover:scale-105 transition-transform duration-300">
                     <svg className="w-8 h-8 text-white drop-shadow-lg" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
                     </svg>
@@ -365,8 +365,8 @@ export default function Home() {
               <div className="kpi-card card-hover">
                 <div className="flex items-center justify-between mb-3">
                   <h3 className="text-sm font-semibold text-gray-600 uppercase tracking-wide">Total Questions</h3>
-                  <div className="w-10 h-10 bg-orange-100 rounded-lg flex items-center justify-center">
-                    <svg className="w-5 h-5 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <div className="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center">
+                    <svg className="w-5 h-5 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
                   </div>
@@ -419,7 +419,7 @@ export default function Home() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
               <div className="bg-white rounded-2xl shadow-lg border border-gray-100 p-6 card-hover">
                 <h3 className="text-sm font-semibold text-gray-600 mb-3 uppercase tracking-wide">Avg Questions</h3>
-                <p className="text-3xl font-bold text-orange-600">{stats?.avg_questions || 0}</p>
+                <p className="text-3xl font-bold text-purple-600">{stats?.avg_questions || 0}</p>
                 <p className="text-sm text-gray-500 mt-2">Per survey</p>
               </div>
 
@@ -454,8 +454,8 @@ export default function Home() {
               {/* Top Categories by Department */}
               <div className="chart-container card-hover">
                 <h2 className="text-xl font-bold text-gray-900 mb-4 flex items-center">
-                  <div className="w-8 h-8 bg-orange-100 rounded-lg flex items-center justify-center mr-3">
-                    <svg className="w-4 h-4 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <div className="w-8 h-8 bg-purple-100 rounded-lg flex items-center justify-center mr-3">
+                    <svg className="w-4 h-4 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
                     </svg>
                   </div>
@@ -471,7 +471,7 @@ export default function Home() {
                     </thead>
                     <tbody className="divide-y divide-gray-200">
                       {topCategories.map((dept, idx) => (
-                        <tr key={idx} className="hover:bg-orange-50 transition-colors">
+                        <tr key={idx} className="hover:bg-purple-50 transition-colors">
                           <td className="px-4 py-3 text-sm font-medium text-gray-900">{dept.department}</td>
                           <td className="px-4 py-3 text-sm text-gray-900 text-right font-semibold">{dept.total_surveys}</td>
                         </tr>
@@ -522,8 +522,8 @@ export default function Home() {
               {/* Department Bar Chart */}
               <div className="chart-container card-hover">
                 <h2 className="text-xl font-bold text-gray-900 mb-4 flex items-center">
-                  <div className="w-8 h-8 bg-orange-100 rounded-lg flex items-center justify-center mr-3">
-                    <svg className="w-4 h-4 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <div className="w-8 h-8 bg-purple-100 rounded-lg flex items-center justify-center mr-3">
+                    <svg className="w-4 h-4 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 8v8m-4-5v5m-4-2v2m-2 4h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
                     </svg>
                   </div>
@@ -545,8 +545,8 @@ export default function Home() {
               <div className="chart-container card-hover">
                 <div className="flex items-center justify-between mb-4">
                   <h2 className="text-xl font-bold text-gray-900 flex items-center">
-                    <div className="w-8 h-8 bg-orange-100 rounded-lg flex items-center justify-center mr-3">
-                      <svg className="w-4 h-4 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <div className="w-8 h-8 bg-purple-100 rounded-lg flex items-center justify-center mr-3">
+                      <svg className="w-4 h-4 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z" />
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z" />
                       </svg>
@@ -562,7 +562,7 @@ export default function Home() {
                   {selectedCategory && (
                     <button
                       onClick={resetCategoryDrilldown}
-                      className="flex items-center px-4 py-2 bg-orange-100 hover:bg-orange-200 text-orange-700 rounded-lg transition-colors"
+                      className="flex items-center px-4 py-2 bg-purple-100 hover:bg-purple-200 text-purple-700 rounded-lg transition-colors"
                     >
                       <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
@@ -602,7 +602,7 @@ export default function Home() {
                         </thead>
                         <tbody className="divide-y divide-gray-200">
                           {categoryDrilldownData.departments.map((dept, idx) => (
-                            <tr key={idx} className="hover:bg-orange-50 transition-colors">
+                            <tr key={idx} className="hover:bg-purple-50 transition-colors">
                               <td className="px-4 py-3 text-sm font-medium text-gray-900">{dept.name}</td>
                               <td className="px-4 py-3 text-sm text-gray-900 text-right font-semibold">{dept.count}</td>
                             </tr>

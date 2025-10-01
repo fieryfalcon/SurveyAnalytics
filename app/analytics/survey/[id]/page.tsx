@@ -125,7 +125,7 @@ export default function SurveyDetailPage() {
           dataLabels: { position: 'right' as const }
         }
       },
-      colors: ['#f97316'],
+      colors: ['#9333EA'],
       dataLabels: {
         enabled: true,
         formatter: function(val: number, opts: { dataPointIndex: number }) {
@@ -169,7 +169,7 @@ export default function SurveyDetailPage() {
               <span className="font-medium text-gray-700">{option}</span>
               <div className="flex items-center gap-4">
                 <span className="text-sm text-gray-500">{counts[idx]} responses</span>
-                <span className="px-3 py-1 bg-orange-100 text-orange-700 rounded-full text-sm font-semibold">
+                <span className="px-3 py-1 bg-purple-100 text-purple-700 rounded-full text-sm font-semibold">
                   {percentages[idx]}%
                 </span>
               </div>
@@ -206,7 +206,7 @@ export default function SurveyDetailPage() {
           columnWidth: '60%'
         }
       },
-      colors: ['#3b82f6'],
+      colors: ['#9333EA'],
       dataLabels: {
         enabled: true,
         style: { fontSize: '12px', colors: ['#1f2937'] }
@@ -290,7 +290,7 @@ export default function SurveyDetailPage() {
         <main className="flex-1 premium-gradient">
           <div className="flex items-center justify-center h-full">
             <div className="text-center">
-              <div className="w-16 h-16 border-4 border-orange-500 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+              <div className="w-16 h-16 border-4 border-purple-500 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
               <div className="text-2xl font-semibold text-gray-700">Loading Survey Details...</div>
             </div>
           </div>
@@ -311,7 +311,7 @@ export default function SurveyDetailPage() {
               </svg>
               <h2 className="text-2xl font-bold text-gray-900 mb-2">Survey Not Found</h2>
               <p className="text-gray-600 mb-4">{error || "The requested survey could not be found."}</p>
-              <a href="/analytics" className="text-orange-600 hover:text-orange-700 font-semibold">
+              <a href="/analytics" className="text-purple-600 hover:text-purple-700 font-semibold">
                 ← Back to Survey List
               </a>
             </div>
@@ -333,7 +333,7 @@ export default function SurveyDetailPage() {
           <div className="max-w-7xl mx-auto">
             {/* Header */}
             <div className="mb-6">
-              <a href="/analytics" className="text-orange-600 hover:text-orange-700 font-semibold mb-4 inline-block">
+              <a href="/analytics" className="text-purple-600 hover:text-purple-700 font-semibold mb-4 inline-block">
                 ← Back to Survey List
               </a>
               
@@ -367,7 +367,7 @@ export default function SurveyDetailPage() {
                     <p className="text-sm font-semibold text-gray-600 uppercase tracking-wide">Total Responses</p>
                     <p className="text-3xl font-bold text-gray-900 mt-2">{survey.response_count}</p>
                   </div>
-                  <div className="w-14 h-14 bg-gradient-to-br from-orange-400 to-orange-600 rounded-2xl flex items-center justify-center">
+                  <div className="w-14 h-14 bg-gradient-to-br from-purple-400 to-purple-600 rounded-2xl flex items-center justify-center">
                     <svg className="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                     </svg>
@@ -462,7 +462,7 @@ export default function SurveyDetailPage() {
                         <h3 className="text-xl font-bold text-gray-900">{question.question_text}</h3>
                       </div>
                       <div className="text-right">
-                        <div className="text-2xl font-bold text-orange-600">{question.response_count}</div>
+                        <div className="text-2xl font-bold text-purple-600">{question.response_count}</div>
                         <div className="text-sm text-gray-600">Responses</div>
                       </div>
                     </div>
