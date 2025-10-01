@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Sidebar from "@/components/Sidebar";
+import { fetchWithCache } from '@/lib/cache';
 
 // Label mappings
 const CATEGORY_LABELS: Record<string, string> = {
@@ -92,11 +93,13 @@ export default function SurveyAnalytics() {
       const API_URL = 'https://accurately-living-phoenix.ngrok-free.app';
       console.log('🔗 Fetching surveys from:', `${API_URL}/analytics/surveys`);
       const headers = { 'ngrok-skip-browser-warning': 'true' };
-      const response = await fetch(`${API_URL}/analytics/surveys`, { headers });
-      if (!response.ok) {
-        throw new Error(`Failed to fetch surveys: ${response.status}`);
-      }
-      const data = await response.json();
+
+      // Fetch with caching (3 minute TTL for surveys list)
+      const data = await fetchWithCache<Survey[]>(
+        `${API_URL}/analytics/surveys`,
+        { headers },
+        3 * 60 * 1000
+      );
       setSurveys(data);
     } catch (error) {
       console.error("Error fetching surveys:", error);
@@ -109,11 +112,13 @@ export default function SurveyAnalytics() {
     try {
       const API_URL = 'https://accurately-living-phoenix.ngrok-free.app';
       const headers = { 'ngrok-skip-browser-warning': 'true' };
-      const response = await fetch(`${API_URL}/analytics/filter-options`, { headers });
-      if (!response.ok) {
-        throw new Error(`Failed to fetch filter options: ${response.status}`);
-      }
-      const data = await response.json();
+
+      // Fetch with caching (10 minute TTL for filter options)
+      const data = await fetchWithCache<FilterOptions>(
+        `${API_URL}/analytics/filter-options`,
+        { headers },
+        10 * 60 * 1000
+      );
       setFilterOptions(data);
     } catch (error) {
       console.error("Error fetching filter options:", error);

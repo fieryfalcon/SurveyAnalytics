@@ -4,6 +4,7 @@ import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import Sidebar from "@/components/Sidebar";
 import dynamic from "next/dynamic";
+import { fetchWithCache } from '@/lib/cache';
 
 // Dynamically import ApexCharts to avoid SSR issues
 const Chart = dynamic(() => import("react-apexcharts"), { ssr: false });
@@ -83,15 +84,14 @@ export default function SurveyDetailPage() {
       const API_URL = 'https://accurately-living-phoenix.ngrok-free.app';
       console.log(`Fetching survey detail for ID: ${id}`);
       const headers = { 'ngrok-skip-browser-warning': 'true' };
-      const response = await fetch(`${API_URL}/analytics/surveys/${id}`, { headers });
-      
-      if (!response.ok) {
-        const errorText = await response.text();
-        console.error('API error:', response.status, errorText);
-        throw new Error(`Failed to fetch survey: ${response.statusText}`);
-      }
-      
-      const data = await response.json();
+
+      // Fetch with caching (5 minute TTL for survey details)
+      const data = await fetchWithCache<SurveyDetail>(
+        `${API_URL}/analytics/surveys/${id}`,
+        { headers },
+        5 * 60 * 1000
+      );
+
       console.log('Survey data:', data);
       setSurvey(data);
       setError(null);

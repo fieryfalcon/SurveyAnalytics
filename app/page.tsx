@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Sidebar from "@/components/Sidebar";
 import dynamic from 'next/dynamic';
+import { fetchWithCache } from '@/lib/cache';
 
 // Dynamically import ApexCharts to avoid SSR issues
 const Chart = dynamic(() => import('react-apexcharts'), { ssr: false });
@@ -84,27 +85,17 @@ export default function Home() {
 
       const API_URL = 'https://accurately-living-phoenix.ngrok-free.app';
       console.log('🔗 Using API URL:', API_URL);
-      
+
       const headers = { 'ngrok-skip-browser-warning': 'true' };
-      
-      const [statsRes, deptRes, catRes, topCatRes, respRes] = await Promise.all([
-        fetch(`${API_URL}/analytics/stats`, { headers }),
-        fetch(`${API_URL}/analytics/department-breakdown`, { headers }),
-        fetch(`${API_URL}/analytics/category-breakdown`, { headers }),
-        fetch(`${API_URL}/analytics/top-categories-by-department`, { headers }),
-        fetch(`${API_URL}/analytics/response-breakdown-by-category`, { headers }),
+
+      // Fetch with caching (5 minute TTL)
+      const [statsData, deptData, catData, topCatData, respData] = await Promise.all([
+        fetchWithCache<DashboardStats>(`${API_URL}/analytics/stats`, { headers }, 5 * 60 * 1000),
+        fetchWithCache<DepartmentData[]>(`${API_URL}/analytics/department-breakdown`, { headers }, 5 * 60 * 1000),
+        fetchWithCache<CategoryData[]>(`${API_URL}/analytics/category-breakdown`, { headers }, 5 * 60 * 1000),
+        fetchWithCache<{ departments: TopCategoryByDepartment[] }>(`${API_URL}/analytics/top-categories-by-department`, { headers }, 5 * 60 * 1000),
+        fetchWithCache<ResponseBreakdown[]>(`${API_URL}/analytics/response-breakdown-by-category`, { headers }, 5 * 60 * 1000),
       ]);
-
-      if (!statsRes.ok) {
-        console.error('Stats API error:', statsRes.status, await statsRes.text());
-        throw new Error(`Failed to fetch stats: ${statsRes.status}`);
-      }
-
-      const statsData = await statsRes.json();
-      const deptData = await deptRes.json();
-      const catData = await catRes.json();
-      const topCatData = await topCatRes.json();
-      const respData = await respRes.json();
 
       setStats(statsData);
       setDepartmentData(deptData);
