@@ -95,9 +95,9 @@ export default function SurveyDetailPage() {
       console.log('Survey data:', data);
       setSurvey(data);
       setError(null);
-    } catch (err: any) {
+    } catch (err: unknown) {
       console.error("Error fetching survey detail:", err);
-      setError(err.message || "Failed to load survey details");
+      setError(err instanceof Error ? err.message : "Failed to load survey details");
     } finally {
       setLoading(false);
     }
