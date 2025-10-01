@@ -248,7 +248,10 @@ export default function Home() {
     legend: {
       position: 'bottom' as const,
       fontSize: '12px',
-      markers: { radius: 4 }
+      markers: {
+        size: 4,
+        shape: 'circle' as const
+      }
     },
     stroke: { width: 0 },
     dataLabels: {

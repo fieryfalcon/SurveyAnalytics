@@ -105,8 +105,8 @@ export default function SurveyDetailPage() {
 
   const renderChoiceQuestion = (question: QuestionAnalysis) => {
     const analysis = question.analysis;
-    const optionCounts = analysis?.option_counts || {};
-    const optionPercentages = analysis?.option_percentages || {};
+    const optionCounts = (analysis?.option_counts || {}) as Record<string, number>;
+    const optionPercentages = (analysis?.option_percentages || {}) as Record<string, number>;
 
     // Prepare data for chart
     const labels = question.options;
@@ -182,10 +182,10 @@ export default function SurveyDetailPage() {
 
   const renderRatingQuestion = (question: QuestionAnalysis) => {
     const analysis = question.analysis;
-    const average = analysis?.average || 0;
-    const ratingMin = analysis?.rating_min || 1;
-    const ratingMax = analysis?.rating_max || 5;
-    const distribution = analysis?.rating_distribution || {};
+    const average = (analysis?.average as number) || 0;
+    const ratingMin = (analysis?.rating_min as number) || 1;
+    const ratingMax = (analysis?.rating_max as number) || 5;
+    const distribution = (analysis?.rating_distribution || {}) as Record<string, number>;
 
     // Prepare data for chart
     const labels = [];
@@ -255,8 +255,8 @@ export default function SurveyDetailPage() {
 
   const renderTextQuestion = (question: QuestionAnalysis) => {
     const analysis = question.analysis;
-    const textResponses = analysis?.text_responses || [];
-    const avgLength = analysis?.average_length || 0;
+    const textResponses = (analysis?.text_responses || []) as string[];
+    const avgLength = (analysis?.average_length as number) || 0;
 
     return (
       <div className="space-y-4">
