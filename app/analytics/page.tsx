@@ -83,6 +83,7 @@ export default function SurveyAnalytics() {
   useEffect(() => {
     applyFiltersAndSort();
     setCurrentPage(1); // Reset to page 1 when filters change
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [surveys, searchTerm, selectedDepartment, selectedCategory, sortField, sortOrder]);
 
   const fetchSurveys = async () => {
@@ -307,7 +308,7 @@ export default function SurveyAnalytics() {
                     <span className="text-sm font-semibold text-gray-600">Active Filters:</span>
                     {searchTerm && (
                       <span className="px-3 py-1 bg-orange-100 text-orange-700 rounded-full text-sm">
-                        Search: "{searchTerm}"
+                        Search: &quot;{searchTerm}&quot;
                       </span>
                     )}
                     {selectedDepartment && (

@@ -38,6 +38,7 @@ export default function Sidebar() {
       {/* Logo Section */}
       <div className="p-6 border-b border-gray-800">
         <div className="flex justify-center items-center">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src="/logo.png" alt="eZAIX Logo" className="w-48 h-auto object-contain transform hover:scale-105 transition-transform duration-300" />
         </div>
       </div>

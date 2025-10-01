@@ -17,7 +17,7 @@ interface QuestionAnalysis {
   options: string[];
   allow_multiple: boolean;
   response_count: number;
-  analysis: any;
+  analysis: Record<string, unknown>;
 }
 
 interface SurveyDetail {
@@ -74,6 +74,7 @@ export default function SurveyDetailPage() {
 
   useEffect(() => {
     fetchSurveyDetail();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
   const fetchSurveyDetail = async () => {
@@ -112,22 +113,22 @@ export default function SurveyDetailPage() {
     const counts = labels.map(opt => optionCounts[opt] || 0);
     const percentages = labels.map(opt => optionPercentages[opt] || 0);
 
-    const chartOptions: any = {
+    const chartOptions = {
       chart: {
-        type: 'bar',
+        type: 'bar' as const,
         toolbar: { show: false },
       },
       plotOptions: {
         bar: {
           horizontal: true,
           borderRadius: 8,
-          dataLabels: { position: 'right' }
+          dataLabels: { position: 'right' as const }
         }
       },
       colors: ['#f97316'],
       dataLabels: {
         enabled: true,
-        formatter: function(val: number, opts: any) {
+        formatter: function(val: number, opts: { dataPointIndex: number }) {
           return `${val} (${percentages[opts.dataPointIndex]}%)`;
         },
         style: {
@@ -147,7 +148,7 @@ export default function SurveyDetailPage() {
       },
       tooltip: {
         y: {
-          formatter: function(val: number, opts: any) {
+          formatter: function(val: number, opts: { dataPointIndex: number }) {
             return `${val} responses (${percentages[opts.dataPointIndex]}%)`;
           }
         }
@@ -194,9 +195,9 @@ export default function SurveyDetailPage() {
       counts.push(distribution[i.toString()] || 0);
     }
 
-    const chartOptions: any = {
+    const chartOptions = {
       chart: {
-        type: 'bar',
+        type: 'bar' as const,
         toolbar: { show: false }
       },
       plotOptions: {
@@ -440,7 +441,7 @@ export default function SurveyDetailPage() {
             <div className="space-y-6">
               <h2 className="text-2xl font-bold text-gray-900">Question Analytics</h2>
               
-              {survey.questions.map((question, idx) => (
+              {survey.questions.map((question) => (
                 <div key={question.question_id} className="bg-white rounded-2xl shadow-lg border border-gray-100 p-6">
                   <div className="mb-6">
                     <div className="flex items-start justify-between">

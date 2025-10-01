@@ -210,7 +210,7 @@ export default function Home() {
       height: 350,
       background: 'transparent',
       events: {
-        dataPointSelection: (event: any, chartContext: any, config: any) => {
+        dataPointSelection: (_event: unknown, _chartContext: unknown, config: { dataPointIndex: number }) => {
           handleCategoryClick(config.dataPointIndex);
         }
       }
@@ -262,57 +262,57 @@ export default function Home() {
     }
   };
 
-  // ApexCharts options for Department Drill-down Bar Chart
-  const drilldownBarChartOptions = categoryDrilldownData ? {
-    chart: {
-      type: 'bar' as const,
-      toolbar: { show: false },
-      height: 300,
-      background: 'transparent'
-    },
-    series: [{
-      name: 'Number of Surveys',
-      data: categoryDrilldownData.departments.map(d => d.count)
-    }],
-    xaxis: {
-      categories: categoryDrilldownData.departments.map(d => d.name),
-      labels: {
-        style: { colors: '#6B7280', fontSize: '12px' },
-        rotate: -45,
-        rotateAlways: true
-      },
-      axisBorder: { show: false },
-      axisTicks: { show: false }
-    },
-    yaxis: {
-      labels: {
-        style: { colors: '#6B7280', fontSize: '12px' },
-        formatter: (value: number) => value.toFixed(0)
-      }
-    },
-    colors: ['#FF6B35'],
-    plotOptions: {
-      bar: {
-        borderRadius: 8,
-        columnWidth: '60%',
-        dataLabels: { position: 'top' }
-      }
-    },
-    dataLabels: {
-      enabled: true,
-      offsetY: -20,
-      style: { fontSize: '12px', colors: ['#FF6B35'] }
-    },
-    grid: {
-      borderColor: '#E5E7EB',
-      strokeDashArray: 5,
-      xaxis: { lines: { show: false } }
-    },
-    tooltip: {
-      theme: 'light',
-      style: { fontSize: '12px' }
-    }
-  } : null;
+  // ApexCharts options for Department Drill-down Bar Chart (unused)
+  // const drilldownBarChartOptions = categoryDrilldownData ? {
+  //   chart: {
+  //     type: 'bar' as const,
+  //     toolbar: { show: false },
+  //     height: 300,
+  //     background: 'transparent'
+  //   },
+  //   series: [{
+  //     name: 'Number of Surveys',
+  //     data: categoryDrilldownData.departments.map(d => d.count)
+  //   }],
+  //   xaxis: {
+  //     categories: categoryDrilldownData.departments.map(d => d.name),
+  //     labels: {
+  //       style: { colors: '#6B7280', fontSize: '12px' },
+  //       rotate: -45,
+  //       rotateAlways: true
+  //     },
+  //     axisBorder: { show: false },
+  //     axisTicks: { show: false }
+  //   },
+  //   yaxis: {
+  //     labels: {
+  //       style: { colors: '#6B7280', fontSize: '12px' },
+  //       formatter: (value: number) => value.toFixed(0)
+  //     }
+  //   },
+  //   colors: ['#FF6B35'],
+  //   plotOptions: {
+  //     bar: {
+  //       borderRadius: 8,
+  //       columnWidth: '60%',
+  //       dataLabels: { position: 'top' }
+  //     }
+  //   },
+  //   dataLabels: {
+  //     enabled: true,
+  //     offsetY: -20,
+  //     style: { fontSize: '12px', colors: ['#FF6B35'] }
+  //   },
+  //   grid: {
+  //     borderColor: '#E5E7EB',
+  //     strokeDashArray: 5,
+  //     xaxis: { lines: { show: false } }
+  //   },
+  //   tooltip: {
+  //     theme: 'light',
+  //     style: { fontSize: '12px' }
+  //   }
+  // } : null;
 
   if (loading) {
     return (
